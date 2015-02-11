@@ -1,0 +1,53 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700,300,400);
+html, body{
+	font-family: "Open Sans", sans-serif;
+}
+
+.guestsContainer {
+	text-align: center;
+}
+
+
+.guest {
+	width: 9%;
+	margin: 0 0 10px 1%;
+	background-size:cover;
+	background-position: top center;
+	max-width:100px;
+	display:inline-block;
+	overflow:hidden;
+	opacity: .5;
+	transition: all .25s;
+	position:relative;
+}
+	
+
+	.guest h3 {
+		padding:10px 2%;
+		margin:0;
+		text-align:center;
+		opacity:0;
+		background-color: rgba(0,0,0,.6);
+		color: rgba(255,255,255,.9);
+		font-size:11pt;
+		font-weight:100;
+		line-height: 1.1em;
+		position:absolute;
+		bottom:0;
+		left:0;
+		width:94%;
+	}
+
+	.guest:hover {
+		opacity: 1;
+		cursor:pointer;
+	}
+	
+		.guest:hover h3 {
+			opacity: 1;
+		}
+
+	
+	.guest.selected {
+		opacity:1;
+	}

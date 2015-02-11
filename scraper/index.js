@@ -2,23 +2,25 @@ var http = require('http');
 var fs = require("fs");
 
 temp_guests = [],
-guests = [];
+guests_array = [];
 guests_csv = "id,name,img,role,url\n",
 max = 70,
 done = 0,
 id = 0;
+photo_increment = 0;
 
 fs.mkdir("../data");
 fs.mkdir("../img");
 
-for( i = 1; i <= max; i++ ){
+for( var i = 1; i <= max; i++ ){
 
 	temp_guests[i] = [];
-	pullRecord(i);
+	pullRecord(i, done);
 	
 }
 
-function pullRecord(i){
+function pullRecord(i, done){
+
 	http.get( "http://thedailyshow.cc.com/feeds/f1034/1.0/9d84111c-901a-4020-b1e4-c4894da65353/?pageNumber=" + i, function(response){
 		var body = "";	
 		response.on("data", function(datum){
@@ -45,25 +47,10 @@ function pullRecord(i){
 				
 				// Pull guest image and file
 				if( img ){
-					http.get(img, function(response){
-						var image = '';
-						response.setEncoding('binary');
-						response.on('data', function(chunk){
-							image += chunk;
-		    			});
-						response.on('end', function(){
-							// Route image based on political status
-						
-							// Write image
-							fs.writeFile("../img/" + name + ".jpg", image, 'binary', function(err){
-								if( err ) throw err; 
-							})
-						});
-	
-					});
+					pullImage(img, name);
 				}
-				
 			});
+			
 			// If we're done, write CSV and JSON files
 			if( done == max ){ 
 				
@@ -74,7 +61,7 @@ function pullRecord(i){
 						id++;
 						
 						// Push to final guest file
-						guests.push(guest);
+						guests_array.push(guest);
 						
 						// Add to CSV object.
 						guests_csv += id + ",\"" + guest.name + "\",\"" + guest.img + "\",\"" + guest.role + "\",\"" + guest.url + "\"\n";
@@ -88,7 +75,8 @@ function pullRecord(i){
 					if( err ) throw err;
 				});
 				
-				fs.writeFile( "../data/guests.json", JSON.stringify(guests), encoding="utf8", function(err){
+				
+				fs.writeFile( "../data/guests.json", JSON.stringify(guests_array), encoding="utf8", function(err){
 					if( err ) throw err;	
 				});
 				
@@ -99,4 +87,20 @@ function pullRecord(i){
 	});
 
 	
+}
+
+function pullImage(img, name){
+	var this_img = img;
+	photo_increment++;
+		setTimeout(function(){
+			console.log(this_img);
+			http.get(img, function(response){
+				var stream = fs.createWriteStream("../img/" + name + ".jpg");
+				response.pipe(stream);
+
+			}).on("error", function(error){
+				//console.log(error);
+			});	
+		}, photo_increment * 500);
+		
 }

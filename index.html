@@ -7,13 +7,16 @@
 	<!-- Angular -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
 	
+	<!-- Site-specific styles -->
+	<link rel="stylesheet" href="styles.css" />
+	
 </head>
 
 <body ng-controller="guestsController">
 
 <div class = "guestsContainer">
-	<div class = "guest" ng-repeat = >
-		
+	<div square class = "guest" ng-class="{selected: guest.selected == true}" ng-repeat="guest in guests" ng-style = "getImageURL(guest.name)">
+		<h3>{{guest.name}}</h3>
 	</div>
 </div>
 	
