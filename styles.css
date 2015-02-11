@@ -13,7 +13,7 @@ html, body{
 	margin: 0 0 10px 1%;
 	background-size:cover;
 	background-position: top center;
-	max-width:100px;
+	max-width:50px;
 	display:inline-block;
 	overflow:hidden;
 	opacity: .5;
@@ -30,7 +30,7 @@ html, body{
 		background-color: rgba(0,0,0,.6);
 		color: rgba(255,255,255,.9);
 		font-size:11pt;
-		font-weight:100;
+		font-weight:900;
 		line-height: 1.1em;
 		position:absolute;
 		bottom:0;

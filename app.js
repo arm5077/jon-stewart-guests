@@ -6,6 +6,13 @@ app.controller("guestsController", ["$scope", "$http", function($scope, $http){
 	$http.get("data/guests.json").
 		success(function(data){
 			$scope.guests = data;
+		
+		
+			$scope.highlightPictures(["Senator", "Administration official"]);
+		
+		
+		
+		
 		})
 		.error(function(err){
 			if(err) console.log(err);
@@ -15,7 +22,17 @@ app.controller("guestsController", ["$scope", "$http", function($scope, $http){
 		return {"background-image": 'url("img/' + img.replace(/ /g, "-") + '.jpg")'}
 	
 	}
-		
+	
+	$scope.highlightPictures = function(categories) {
+		$scope.guests.forEach( function(guest){
+			if( categories.indexOf(guest["Political status"]) > -1 ) guest.selected = true;
+			else guest.selected = false;
+		});
+
+	}
+	
+	
+	
 		
 }]);
 
