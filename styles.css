@@ -1,23 +1,102 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:700,300,400);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300,400);
 html, body{
 	font-family: "Open Sans", sans-serif;
 }
 
-.guestsContainer {
-	text-align: center;
+.rail {
+	width: 20%;
+	padding: 10px 1%;
+	display:inline-block;
+	position:fixed;
+	top:0;
+	left:0;
+	border-right: 1px solid #ccc;
+	height:100%;
+	overflow:scroll;
 }
 
+	.rail h1 {
+		font-weight: 100;
+		text-align: right;
+		padding: 0;
+		margin: 0;
+		font-size: 25pt;
+		line-height: 1.3em;
+		margin-bottom: 20px;
+	}
+	
+		.rail ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			
+		}
+		
+			.rail ul li {
+				width: 96%;
+				padding: 2%;
+				border-radius: 5px;
+				border: 1px solid #ccc;
+				margin-bottom: 10px;
+				cursor:pointer;
+				transition: all .2s;
+			}
+			
+				.rail ul li.nonpolitical {
+					display:none;
+				}
+			
+				.rail ul li.selected {
+					background-color:rgba(118,182,227,.5)
+					
+				}
+			
+				.rail ul li i {
+					float: right;
+					font-size:17pt;
+					opacity:0;
+					transition: all .2s;
+					color:#267EC1;
+				}
+				
+					.rail ul li.selected i {
+						opacity:1;
+						
+					}
+				
+					.rail ul li:hover{
+						box-shadow: inset 0px 0px 5px rgb(118,182,227);
+					}
+
+	.rail .divider {
+		border-bottom:1px solid #ccc;
+		margin:15px auto;
+		width: 90%;
+	}
+
+.guestsContainer {
+	text-align: left;
+	width:75%;
+	display:inline-block;
+	position:absolute;
+	top: 0;
+	left:23%;
+}
+
+a {
+	text-decoration:none;
+	
+}
 
 .guest {
-	width: 9%;
+	width: 10%;
 	margin: 0 0 10px 1%;
 	background-size:cover;
 	background-position: top center;
-	max-width:50px;
 	display:inline-block;
 	overflow:hidden;
-	opacity: .5;
-	transition: all .25s;
+	opacity: .9;
+	transition: opacity .25s;
 	position:relative;
 }
 	
@@ -51,3 +130,58 @@ html, body{
 	.guest.selected {
 		opacity:1;
 	}
+	
+@media screen and (max-width: 1070px) {
+	.rail {
+		position:relative;
+		top:0;
+		left:0;
+		display:block;
+		width:100%;
+	}
+	
+		.rail h1 {
+			display:none;
+		}
+	
+	.guestsContainer {
+		width:100%;
+		display:inline-block;
+		position:relative;
+		top: 0;
+		left:0;
+	}
+	
+	.guest {
+		width:30%;
+	}
+	
+		.guest h3 {
+			opacity: 1;
+		}
+	
+	.rail ul li {
+		width:auto;
+		padding: .5%;
+		border: 1px solid #ccc;
+		margin-bottom: 10px;
+		display: inline-block;
+		margin-left: 13px;
+	}
+	
+	.for-nonpolitical {
+		display:none;
+	}
+	
+	.rail ul li.nonpolitical {
+		display:inline-block;
+	}
+	
+	.rail ul li i {
+		float: none;
+		margin-left: 5px;
+		position: relative;
+		top: 2px;
+	}
+	
+}
