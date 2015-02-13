@@ -17,13 +17,21 @@ html, body{
 
 	.rail h1 {
 		font-weight: 100;
-		text-align: right;
+		text-align: left;
 		padding: 0;
 		margin: 0;
 		font-size: 25pt;
 		line-height: 1.3em;
 		margin-bottom: 20px;
 	}
+	
+		.rail .credit {
+			font-size: 10pt;
+			color:#ccc;
+			font-weight:100;
+			text-transform:uppercase;
+			margin:-5px 0px 10px;
+		}
 	
 		.rail ul {
 			margin: 0;
@@ -89,7 +97,8 @@ a {
 }
 
 .guest {
-	width: 10%;
+	width: 100px;
+	height:100px;
 	margin: 0 0 10px 1%;
 	background-size:cover;
 	background-position: top center;
@@ -138,6 +147,8 @@ a {
 		left:0;
 		display:block;
 		width:100%;
+		border:0;
+		padding:0;
 	}
 	
 		.rail h1 {
@@ -160,13 +171,14 @@ a {
 			opacity: 1;
 		}
 	
+
+	
 	.rail ul li {
-		width:auto;
-		padding: .5%;
+		width: 92%;
+		padding: .5% 2%;
 		border: 1px solid #ccc;
 		margin-bottom: 10px;
 		display: inline-block;
-		margin-left: 13px;
 	}
 	
 	.for-nonpolitical {
@@ -178,7 +190,7 @@ a {
 	}
 	
 	.rail ul li i {
-		float: none;
+		float: right;
 		margin-left: 5px;
 		position: relative;
 		top: 2px;

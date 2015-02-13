@@ -15,6 +15,9 @@
 	<!-- Isotope -->
 	<script src="isotope.pkgd.js"></script>
 	
+	<!-- Pym.js -->
+	<script src="pym.js"></script>
+	
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	
@@ -27,10 +30,11 @@
 
 <div class = "rail">
 	<h1>The guests of<br />"The Daily Show"</h1>
-	
+	<p>Over Jon Stewart's 16 years as host of <em>The Daily Show</em>, thousands of politicians and celebrities have sat across his desk. These 658 guests come from The Daily Show's archive of most recent shows, which stretches back to 2009. <div class = "credit">Photos: <a href="http://thedailyshow.cc.com/guests">The Daily Show</a></div></p>
+
 	<ul class = "for-nonpolitical">
 		<li ng-click="selectOrUnselectAll()" ng-class="{ selected: areAllSelected() == true }">
-			Select all
+			{{ areAllSelected() == true ? "Unselect all" : "Select all" }}
 			<i class='fa fa-check-circle-o'></i>
 		</li>
 	</ul>
@@ -53,11 +57,13 @@
 		</li>
 	</ul>
 	
+	<p><em>Correction: An earlier headline on this story misidentified a </em>Daily Show<em> guest. It was Florida Sen. Marco Rubio.</em></p>
+	
 </div>
 
 <div class = "guestsContainer" isotope>
 	<a href="{{guest.url}}" ng-repeat="guest in guests" target="_blank">
-		<div square class = "guest" data-category="{{guest.category}}" data-name="{{guest.name}}" ng-class="{selected: guest.selected == true}" ng-style = "getImageURL(guest.name)">
+		<div class = "guest" id="{{$index}}" data-name="{{guest.name}}" ng-class="{selected: guest.selected == true}" ng-style = "getImageURL(guest.name)">
 			<h3>{{guest.name}}</h3>
 		</div>
 	</a>

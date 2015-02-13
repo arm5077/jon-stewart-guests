@@ -3,24 +3,30 @@ app.controller("guestsController", ["$scope", "$http", function($scope, $http){
 	
 	
 	$scope.selected = [];
+	$scope.categories = [];
 	
 	$http.get("data/guests.json").
 		success(function(data){
 			
 			$scope.guests = data;
-			$scope.categories = $scope.guests.map(function(guest){ return guest.category })
+			$scope.categories = $scope.guests.map(function(guest){ return guest.category[0] })
 				.filter(function(obj, i, a){ return a.indexOf(obj) == i })
 				.sort();
 			
-			$scope.selected = $scope.categories.slice(0);
-			
-		
-			
+
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+				$scope.selected = $scope.categories.filter(function(category){ return ( category == "Non-political" ? false : true) });
+				setTimeout(function(){ $scope.runSort(); }, 1000);
+			} 
+			else
+				$scope.selected = $scope.categories.slice(0);
 		
 		})
 		.error(function(err){
 			if(err) console.log(err);
 		});
+	
+	
 	
 	$scope.areAllSelected = function(){
 		return ( $scope.selected.length == $scope.categories.length ? true : false)
@@ -32,13 +38,8 @@ app.controller("guestsController", ["$scope", "$http", function($scope, $http){
 			$scope.selected = [];
 		else 
 			$scope.selected = $scope.categories.slice(0);
-		
-		
-		$(".guestsContainer").isotope({
-			filter: function(){
-				return $scope.selected.indexOf($(this).attr("data-category")) != -1;
-			}
-		});
+			
+		$scope.runSort();
 		
 	};
 	
@@ -50,16 +51,23 @@ app.controller("guestsController", ["$scope", "$http", function($scope, $http){
 		return {"background-image": 'url("img/' + img.replace(/ /g, "-") + '.jpg")'}
 	};
 	
-	$scope.highlightPictures = function(categories) {
-		$scope.guests.forEach( function(guest){
-			if( categories.indexOf(guest.category) > -1 ) guest.selected = true;
-			else guest.selected = false;
-		});
 
-	};
 	
 	$scope.sortGuests = function(category){
 		
+	
+		
+		index = $scope.selected.indexOf(category);
+		if( index == -1 ) 
+			$scope.selected.push(category);
+		else
+			$scope.selected.splice(index, 1);
+		 
+		$scope.runSort();
+		
+	};
+	
+	$scope.runSort = function(){
 		$(".guestsContainer").isotope({
 			itemSelector: '.guest',
 			layoutMode: 'fitRows',
@@ -68,22 +76,18 @@ app.controller("guestsController", ["$scope", "$http", function($scope, $http){
 				category: '[data-category]'
 			}	
 		});
-		
-		index = $scope.selected.indexOf(category);
-		if( index == -1 ) 
-			$scope.selected.push(category);
-		else
-			$scope.selected.splice(index, 1);
 		 
 		$(".guestsContainer").isotope({
 			filter: function(){
-				return $scope.selected.indexOf($(this).attr("data-category")) != -1;
+				matches = false;
+				$scope.guests[parseInt($(this).attr("id")) ].category.forEach(function(category){
+					if( $scope.selected.indexOf(category) != -1) matches = true;
+				});
+				
+				return matches;
 			}
 		});
-		
-	};
-	
-	
+	}
 	
 		
 }]);
